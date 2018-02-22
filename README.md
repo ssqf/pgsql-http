@@ -227,6 +227,27 @@ By default a 5 second timeout is set for the completion of a request.  If a diff
 
 If you have PostgreSQL (>= 9.3) devel packages and CURL devel packages installed (>= 0.7.20), you should have `pg_config` and `curl-config` on your path, so you should be able to just run `make`, then `make install`, then in your database `CREATE EXTENSION http`.
 
+ubuntu安装开发包
+
+1. sudo apt-get install libcurl
+2. sudo apt-get install libpq-dev
+3. sudo apt-get install postgresql-server-dev-all
+4. sudo apt-get install postgresql-common
+5. sudo apt-get install libcurl4-openssl-dev
+6. make
+7. sudo make install
+8. CREATE EXTENSION http;
+
+```shell
+ubuntu@VM-25-45-ubuntu:~/pgsql-http$ sudo make install
+/bin/mkdir -p '/usr/lib/postgresql/9.5/lib'
+/bin/mkdir -p '/usr/share/postgresql/9.5/extension'
+/bin/mkdir -p '/usr/share/postgresql/9.5/extension'
+/usr/bin/install -c -m 755  http.so '/usr/lib/postgresql/9.5/lib/http.so'
+/usr/bin/install -c -m 644 .//http.control '/usr/share/postgresql/9.5/extension/'
+/usr/bin/install -c -m 644 .//http--1.2.sql .//http--1.1--1.2.sql .//http--1.0--1.1.sql  '/usr/share/postgresql/9.5/extension/'
+```
+
 If you already installed a previous version and you just want to upgrade, then `ALTER EXTENSION http UPDATE`.
 
 ### Windows
