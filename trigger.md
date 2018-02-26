@@ -91,3 +91,28 @@ ALTER FUNCTION sync_search() RETURNS trigger AS $sync_search$
         RETURN NULL; -- 因为这是一个 AFTER 触发器，结果被忽略
 	END;
 $sync_search$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION sync_search() RETURNS trigger AS $sync_search$
+    import urllib2
+    url = 'http://localhost:8809/sync'
+    if TD['event']=='DELETE':
+        urllib2.urlopen(url)
+    elif TD['event']=='INSERT':
+        urllib2.urlopen(url)
+    elif TD['event']=='UPDATE':
+        urllib2.urlopen(url)
+    elif TD['event']=='TRUNCATE':
+        urllib2.urlopen(url)
+    else:
+        return NULL 
+$sync_search$ LANGUAGE plpythonu;
+
+
+CREATE OR REPLACE FUNCTION get(uri character varying) RETURNS trigger AS $BODY$
+import urllib2
+ 
+urllib2.urlopen(uri)
+
+ 
+$BODY$ LANGUAGE plpythonu;
